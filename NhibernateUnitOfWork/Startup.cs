@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using NhibernateUnitOfWork.Infra;
+using NhibernateUnitOfWork.Model;
+using NhibernateUnitOfWork.Repositories;
 
 namespace NhibernateUnitOfWork
 {
@@ -19,9 +21,10 @@ namespace NhibernateUnitOfWork
             var _sessionFactory = SessionFactory.Init("connexion");
 
             services.AddSingleton(factory => _sessionFactory);
-
+          
             services.AddScoped<IUnitOfWork, NHUnitOfWork>();
 
+            services.AddTransient<IClientRepository, ClientRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
